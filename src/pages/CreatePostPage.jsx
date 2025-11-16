@@ -2,6 +2,8 @@ import { useState } from "react";
 import restaurantData from "../components/data/business-licences.json"
 
 function CreatePost() {
+
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
     const restaurantList = restaurantData
     .map((item) => `${item.businesstradename} ${item.street}`)
     .filter(Boolean)
@@ -13,24 +15,42 @@ function CreatePost() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
+        if (!user.username) {
+            alert("You must be logged in to create a post.");
+            return;
+        }
+    
         const newPost = {
+            restaurant,
             eat_time,
             max_party,
-            comments
+            comments,
+            username: user.username, // use persisted username
+            host_name: user.firstName,
+            number_accepted: 1
+        };
+    
+        try {
+            const res = await fetch("http://localhost:8000/postings", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newPost),
+            });
+    
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.detail || "Failed to create post");
+            }
+    
+            const data = await res.json();
+            console.log("Post created:", data);
+            alert("Post created successfully!");
+        } catch (err) {
+            console.error("Error creating post:", err.message);
+            alert("Error creating post: " + err.message);
         }
-
-        fetch("http://localhost:8000/hostings", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newHosting),
-          })
-            .then((res) => res.json())
-            .then((data) => console.log("Hosting created:", data))
-            .catch((err) => console.error(err))
-    }
+    };
 
     const handleTime = (e) => {
         const completeTime = `${e.target.value}:00`;

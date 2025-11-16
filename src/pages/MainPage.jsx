@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Post from "../components/DefaultPost.jsx";
-import { fetchPostsq } from "../api/posts.js";
 import { useNavigate } from "react-router-dom";
 
 function MainPage() {
