@@ -7,4 +7,4 @@ function Login() {
     )
 }
 
-export default Main;
+export default Login;

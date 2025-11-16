@@ -7,4 +7,4 @@ function Details() {
     )
 }
 
-export default Main;
+export default Details;
