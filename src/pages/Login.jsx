@@ -168,15 +168,17 @@ function Login() {
                                 )}
 
                                 <input
+                                    key={`username-${isLogin}`}
                                     className="input"
                                     type="text"
                                     placeholder="Username"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    required
+                                    required                                    
                                 />
 
                                 <input
+                                    key={`password-${isLogin}`}
                                     className="input"
                                     type="password"
                                     placeholder="Password"
