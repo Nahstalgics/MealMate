@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
+import './Login.css';
 
 function Login() {
     const navigate = useNavigate();
@@ -106,6 +107,7 @@ function Login() {
     }
 
     // If Google signup and waiting for username
+    // If Google signup and waiting for username
     if (showUsernameInput) {
         return (
             <div className="main">
@@ -120,7 +122,7 @@ function Login() {
                         
                         <form onSubmit={handleUsernameSubmit}>
                             <input
-                                class = "input"
+                                className="input"
                                 type="text"
                                 placeholder="Username"
                                 value={username}
@@ -145,78 +147,81 @@ function Login() {
                 <div className="login-box">
                     <h1 className="login-signup-header">{isLogin ? 'Login' : 'Sign Up'}</h1>
                     
-                    {/* REGULAR LOGIN/SIGNUP */}
-                    <div className="regular-auth">
-                        <form onSubmit={handleLogin}>
-                            {!isLogin && (
-                                <>
-                                    <input
-                                        class = "input"
-                                        type="text"
-                                        placeholder="First Name"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                        required
-                                    />
-                                    
-                                    <input
-                                        class = "input"
-                                        type="text"
-                                        placeholder="Last Name"
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
-                                        required
-                                    />
-                                    
-                                    <input
-                                        class = "input"
-                                        type="email"
-                                        placeholder="Email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                    />
-                                </>
-                            )}
-                            
-                            <input
-                                class = "input"
-                                type="text"
-                                placeholder="Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                            />
-                            
-                            <input
-                                class = "input"
-                                type="password"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                            
-                            <button type="submit">
-                                {isLogin ? 'Login' : 'Sign Up'}
+                    {/* WRAPPER FOR SIDE BY SIDE */}
+                    <div className="auth-wrapper">
+                        {/* REGULAR LOGIN/SIGNUP */}
+                        <div className="regular-auth">
+                            <form onSubmit={handleLogin}>
+                                {!isLogin && (
+                                    <>
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            placeholder="First Name"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
+                                            required
+                                        />
+                                        
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            placeholder="Last Name"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)}
+                                            required
+                                        />
+                                        
+                                        <input
+                                            className="input"
+                                            type="email"
+                                            placeholder="Email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            required
+                                        />
+                                    </>
+                                )}
+                                
+                                <input
+                                    className="input"
+                                    type="text"
+                                    placeholder="Username"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                                
+                                <input
+                                    className="input"
+                                    type="password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                                
+                                <button type="submit">
+                                    {isLogin ? 'Login' : 'Sign Up'}
+                                </button>
+                            </form>
+                        </div>
+    
+                        {/* OR DIVIDER */}
+                        <div className="divider">
+                            <span>OR</span>
+                        </div>
+    
+                        {/* GOOGLE LOGIN/SIGNUP */}
+                        <div className="google-auth">
+                            <button 
+                                className="google-button"
+                                onClick={handleGoogleAuth}
+                            >
+                                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+                                {isLogin ? 'Login with Google' : 'Sign Up with Google'}
                             </button>
-                        </form>
-                    </div>
-
-                    {/* OR DIVIDER */}
-                    <div className="divider">
-                        <span>OR</span>
-                    </div>
-
-                    {/* GOOGLE LOGIN/SIGNUP */}
-                    <div className="google-auth">
-                        <button 
-                            className="google-button"
-                            onClick={handleGoogleAuth}
-                        >
-                            <img src="https://www.google.com/favicon.ico" alt="Google" />
-                            {isLogin ? 'Login with Google' : 'Sign Up with Google'}
-                        </button>
+                        </div>
                     </div>
                     
                     {/* TOGGLE */}
