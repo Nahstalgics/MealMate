@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Post from "../components/Post";
-import { fetchPostsq } from "../api/posts.js";
 
 function MainPage() {
     const [posts, setPosts] = useState([]);

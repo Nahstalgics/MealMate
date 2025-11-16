@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
+import api from "../api/api";
 
 function Login() {
+
     const navigate = useNavigate();
 
     const [isLogin, setIsLogin] = useState(true);
@@ -13,19 +15,60 @@ function Login() {
     
     const [showUsernameInput, setShowUsernameInput] = useState(false);
 
-    function handleLogin(e) {
+    // function handleLogin(e) {
+    //     e.preventDefault();
+        
+    //     if (isLogin) {
+    //         console.log('Logging in:', { username, password });
+    //         // TODO: API call to /api/login
+    //     } else {
+    //         console.log('Signing up:', { firstName, lastName, username, email, password });
+    //         // TODO: API call to /api/signup
+    //     }
+        
+    //     // Navigate to main page after login/signup
+    //     navigate("/mainPage");
+    // }
+
+    async function handleLogin(e) {
         e.preventDefault();
-        
+    
         if (isLogin) {
-            console.log('Logging in:', { username, password });
-            // TODO: API call to /api/login
+            try {
+                // Call your FastAPI /login endpoint
+                const response = await api.login(username, password);
+    
+                console.log('Login successful:', response);
+                // You can store the user somewhere (state, context, localStorage, etc.)
+                // Example: localStorage.setItem("user", JSON.stringify(response.user));
+                
+                // Navigate to main page
+                navigate("/mainPage");
+    
+            } catch (err) {
+                console.error("Login failed:", err.message);
+                alert("Login failed: " + err.message);
+            }
+    
         } else {
-            console.log('Signing up:', { firstName, lastName, username, email, password });
-            // TODO: API call to /api/signup
+            // Sign up flow
+            try {
+                const userData = { firstName, lastName, email, password, username };
+                const response = await api.createUser(userData);
+    
+                console.log('Signup successful:', response);
+    
+                // Optionally log the user in automatically after signup
+                const loginResponse = await api.login(username, password);
+                console.log('Auto-login successful:', loginResponse);
+    
+                navigate("/mainPage");
+    
+            } catch (err) {
+                console.error("Signup failed:", err.message);
+                alert("Signup failed: " + err.message);
+            }
         }
-        
-        // Navigate to main page after login/signup
-        navigate("/mainPage");
     }
 
     function handleGoogleAuth() {
