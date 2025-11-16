@@ -48,7 +48,7 @@ function Login() {
                 const response = await fetch("http://localhost:8000/users", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ firstName, lastName, username, email, password }),
+                    body: JSON.stringify({ firstName, lastName, email, password, username }),
                 });
 
                 if (!response.ok) {
@@ -73,7 +73,7 @@ function Login() {
 
                 const loginData = await loginResponse.json();
                 console.log("Auto-login successful:", loginData);
-
+    
                 localStorage.setItem("user", JSON.stringify(loginData.user));
 
                 navigate("/mainPage");
