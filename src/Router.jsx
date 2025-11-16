@@ -1,0 +1,17 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import MainPage from "./pages/MainPage";
+import Details from "./pages/Details";
+
+export default function AppRouter() {
+    return (
+        <BrowserRouter>
+        {/* All page routes are here */}
+            <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/mainPage" element={<MainPage />} />
+                <Route path="/post/:id" element={<Details />} />
+            </Routes>
+        </BrowserRouter>
+    )
+}
