@@ -2,8 +2,7 @@
 import Post from "../components/DefaultPost.jsx";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-
-import "./MainPage.css"
+import "./MainPage.css";
 
 function MainPage() {
     const [posts, setPosts] = useState([]);
@@ -90,7 +89,8 @@ function MainPage() {
                     currentUser={loggedInUser.username}
                     listOfUsers={p.listOfUsers || []}
                 />
-            ))}
+                ))}
+            </div>
         </div>
     );
 }
