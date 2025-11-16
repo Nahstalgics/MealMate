@@ -64,8 +64,8 @@ function CreatePost() {
 
     return (
         <div className="main">
-            <h1>Host a MealMate</h1>
-            <form onSubmit={handleSubmit}>
+            <h1 className="header">Host a MealMate</h1>
+            <form onSubmit={handleSubmit} className="input">
                 <select
                     value={restaurant}
                     onChange={(e) => setRestaurant(e.target.value)}
