@@ -74,7 +74,7 @@ function Login() {
                             required
                         />
                         
-                        <button type="submit">
+                        <button onClick={handleLogin} type="submit">
                             {isLogin ? 'Login' : 'Sign Up'}
                         </button>
                     </form>
@@ -87,12 +87,8 @@ function Login() {
                     </p>
                 </div>
             </div>
-        <div>
-            <h1>Login</h1>
-            <button onClick={handleLogin}>Login</button>
         </div>
     );
 }
 
-export default Login;
 export default Login;
