@@ -71,50 +71,108 @@ function CreatePost() {
     };
 
     return (
+        // <div className="main">
+        //     <h1 className="header">Host a MealMate</h1>
+        //     <div className="input">
+        //         <form onSubmit={handleSubmit}>
+        //             <select
+        //                 value={restaurant}
+        //                 onChange={(e) => setRestaurant(e.target.value)}
+        //                 required
+        //             >
+        //                 <option value="">Select a Restaurant</option>
+        //                 {restaurantList.map((rest) => (
+        //                     <option key={rest} value={rest}>
+        //                         {rest}
+        //                     </option>
+        //                 ))}
+        //             </select>
+
+        //             <input
+        //                 type="time"
+        //                 value={eat_time.slice(0, 5)}
+        //                 onChange={handleTime}
+        //                 placeholder="What time will we meet?"
+        //                 required
+        //             />
+
+        //             <input
+        //                 type="number"
+        //                 value={max_party || ""}
+        //                 min={2}
+        //                 onChange={(e) => setMaxParty(parseInt(e.target.value) || 2)}
+        //                 placeholder="Max Party"
+        //                 required
+        //             />
+
+        //             <input
+        //                 type="text"
+        //                 value={comments}
+        //                 onChange={(e) => setComments(e.target.value)}
+        //                 placeholder="Comments"
+        //                 required
+        //             />
+
+        //             <button type="submit">Submit Post</button>
+        //         </form>
+        //     </div>
+        // </div>
         <div className="main">
-            <h1 className="header">Host a MealMate</h1>
-            <form onSubmit={handleSubmit} className="input">
-                <select
-                    value={restaurant}
-                    onChange={(e) => setRestaurant(e.target.value)}
-                    required
-                >
-                    <option value="">Select a Restaurant</option>
-                    {restaurantList.map((rest) => (
-                        <option key={rest} value={rest}>
-                            {rest}
-                        </option>
-                    ))}
-                </select>
+    <h1 className="header">Host a MealMate</h1>
 
-                <input
-                    type="time"
-                    value={eat_time.slice(0, 5)}
-                    onChange={handleTime}
-                    placeholder="What time will we meet?"
-                    required
-                />
+    <div className="input">
+        <div className="input-card">
+            <form onSubmit={handleSubmit}>
+                <div className="input-group">
+                    <select
+                        value={restaurant}
+                        onChange={(e) => setRestaurant(e.target.value)}
+                        required
+                    >
+                        <option value="">Select a Restaurant</option>
+                        {restaurantList.map((rest) => (
+                            <option key={rest} value={rest}>
+                                {rest}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
-                <input
-                    type="number"
-                    value={max_party || ""}
-                    min={2}
-                    onChange={(e) => setMaxParty(parseInt(e.target.value) || 2)}
-                    placeholder="Max Party"
-                    required
-                />
+                <div className="input-group">
+                    <input
+                        type="time"
+                        value={eat_time.slice(0, 5)}
+                        onChange={handleTime}
+                        required
+                    />
+                </div>
 
-                <input
-                    type="text"
-                    value={comments}
-                    onChange={(e) => setComments(e.target.value)}
-                    placeholder="Comments"
-                    required
-                />
+                <div className="input-group">
+                    <input
+                        type="number"
+                        min={2}
+                        value={max_party || ""}
+                        onChange={(e) => setMaxParty(parseInt(e.target.value) || 2)}
+                        placeholder="Max Party"
+                        required
+                    />
+                </div>
 
-                <button type="submit">Submit Post</button>
-            </form>
+                <div className="input-group">
+                    <input
+                        type="text"
+                        value={comments}
+                        onChange={(e) => setComments(e.target.value)}
+                        placeholder="Comments"
+                        required
+                    />
+                </div>
+
+                    <button type="submit">Submit Post</button>
+                </form>
+            </div>
         </div>
+    </div>
     );
 }
 

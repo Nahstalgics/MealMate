@@ -69,8 +69,6 @@ function MainPage() {
                 />
             ))}
 
-            <hr />
-
             {/* ------------------------------ */}
             {/*     ALL PUBLIC POSTINGS        */}
             {/* ------------------------------ */}
@@ -90,7 +88,6 @@ function MainPage() {
                     listOfUsers={p.listOfUsers || []}
                 />
                 ))}
-            </div>
         </div>
     );
 }

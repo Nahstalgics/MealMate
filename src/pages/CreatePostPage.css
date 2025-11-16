@@ -1,12 +1,22 @@
-.main {
-    min-height: 100vh;
-    background-color: #EFF3FB;
+/* .main {
+    min-height: 48vh;
+    background-color: #faf1f1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-self: stretch;
     justify-content: center;
     padding: 2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+} */
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #faf1f1;
+    padding: 40px 20px;
 }
 
 .header {
@@ -18,17 +28,18 @@
     animation: fadeInDown 0.8s ease-out;
 }
 
-.input {
-    /* background: #FFFFFF; */
+.input form{
+    background: #fffbfb;
     padding: 50px;
-    /* border-radius: 20px; */
-    border: none;
-    /* box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); */
+    border-radius: 20px;
+    border-color: #ccc;
     width: 100%;
     max-width: 600px;
+
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    align-self: center;
+    gap: 20px;
     animation: fadeInUp 0.8s ease-out 0.2s backwards;
 }
 
@@ -41,13 +52,13 @@
     width: 100%;
     box-sizing: border-box;
     transition: all 0.3s ease;
-    background-color: #F6F4F4;
+    background-color: #f9f6f5;
 }
 
 .input select:focus,
 .input input:focus {
     outline: none;
-    border-color: #EE392F;
+    border-color: #f1c3c1;
     background-color: #FFFFFF;
     box-shadow: 0 0 0 4px rgba(238, 57, 47, 0.1);
 }
@@ -90,7 +101,6 @@
     transform: translateY(0);
 }
 
-/* Add labels for better UX */
 .input-group {
     display: flex;
     flex-direction: column;
