@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./DefaultPost.css"
 
 function DefaultPost({ restaurant, eat_time, max_party, number_accepted, host_name, comments, host_username, listOfUsers }) {
     const [toggled, setToggled] = useState(false);
@@ -46,22 +47,29 @@ function DefaultPost({ restaurant, eat_time, max_party, number_accepted, host_na
 
     return (
         <div className="post-bar">
-            <div className="post-header">
-                <h3>{restaurant}</h3>
-                <p>{eat_time.slice(0,5)}</p>
-                <p>{currentAccepted} / {max_party}</p>
-                <p>Host: {host_name}</p>
-                <button onClick={() => setToggled(!toggled)}>
-                    {toggled ? "hide" : "details"}
-                </button>
-            </div>
-            {toggled && (
-                <div className="post-details">
-                    <p>{comments}</p>
-                    <p>Attendees: {usersList.join(", ")}</p>
-                    <button onClick={handleJoin} disabled={usersList.includes(loggedInUser.username) || currentAccepted >= max_party}>
-                        {usersList.includes(loggedInUser.username) ? "Joined" : "Join"}
+            <div className="top-bar">
+                <div className="left">
+                    <h3>{restaurant}</h3>
+                    <p>Host: {host_name}</p>
+                    <p>{currentAccepted} / {max_party}</p>
+                </div>
+                <div className="right">
+                    <p>{eat_time.slice(0,5)}</p>
+                    <button onClick={() => setToggled(!toggled)}>
+                        {toggled ? "hide" : "details"}
                     </button>
+                </div>
+            </div>
+
+            {toggled && (
+                <div className="bottom-bar">
+                    <div className="details">
+                        <p>{comments}</p>
+                        <p>Attendees: {usersList.join(", ")}</p>
+                        <button onClick={handleJoin} disabled={usersList.includes(loggedInUser.username) || currentAccepted >= max_party}>
+                            {usersList.includes(loggedInUser.username) ? "Joined" : "Join"}
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
