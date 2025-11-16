@@ -1,8 +1,7 @@
 import Post from "../components/DefaultPost.jsx";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-
-import "./MainPage.css"
+import "./MainPage.css";
 
 function MainPage() {
     const [posts, setPosts] = useState([]);
@@ -45,11 +44,16 @@ function MainPage() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <div>
-            <h1>I'm Main Page!</h1>
-            <button onClick={handleCreatePost}>Host a MealMate!</button>
-            {posts.map((p) => (
-                <Post 
+        <div className="main-page">
+            <div className="main-header">
+                <h1>I'm Main Page!</h1>
+            </div>
+            <button className="create-post-button" onClick={handleCreatePost}>
+                Host a MealMate!
+            </button>
+            <div className="posts-container">
+                {posts.map((p) => (
+                    <Post 
                     key={`${p.username}-${p.eat_time}`} 
                     restaurant={p.restaurant}
                     eat_time={p.eat_time}
@@ -61,7 +65,8 @@ function MainPage() {
                     currentUser={loggedInUser.username} // user viewing/joining
                     listOfUsers={p.listOfUsers || []}  // pass list of joined users
                 />
-            ))}
+                ))}
+            </div>
         </div>
     );
 }

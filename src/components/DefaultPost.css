@@ -1,59 +1,168 @@
+/* Post Card Container */
 .post-bar {
-    display: flex;
-    flex-direction: column; /* stack top and bottom */
-    width: 76%; 
-    padding: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: #f9f9f9;
+    width: 100%;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
 }
 
-.left h3, .left p, .right p {
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
+.post-bar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
 }
 
-.left {
-    align-items: flex-start;
-}
-  
-.right {
-    align-items: flex-end;
-}
-
+/* Top Bar - Always Visible */
 .top-bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    padding: 30px 40px;
 }
 
-.bottom-bar {
-    border: 1px solid #ccc;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    padding: 13px;
-    padding-top: 9px;
-    padding-bottom: 10px;
+/* Left side - Restaurant info */
+.left h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 12px 0;
+}
+
+.left p {
+    font-size: 16px;
+    color: #666;
+    margin: 6px 0;
+}
+
+/* Right side - Time and toggle button */
+.right {
     display: flex;
     flex-direction: column;
-    gap: 26px;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.right p {
+    font-size: 22px;
+    font-weight: 600;
+    color: #4285f4;
+    margin: 0;
+}
+
+.right button {
+    background-color: #e8f0fe;
+    border: 1px solid #4285f4;
+    color: #4285f4;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 90px;
+}
+
+.right button:hover {
+    background-color: #4285f4;
+    color: white;
+}
+
+/* Bottom Bar - Details (Expandable) */
+.bottom-bar {
+    border-top: 2px solid #f5f5f5;
+    animation: slideDown 0.3s ease-out;
 }
 
 .details {
-    text-align: left;  
-    align-self: flex-start;   
-    padding: 10px;
-    border-radius: 4px;
-    flex-grow: 1;
-    line-height: 1.7;
-    width: 100%;
+    padding: 30px 40px;
 }
 
-.join {
-    align-self: center;
-    padding: 0.26rem;
-    width: 13%;
+.details p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 16px 0;
+}
+
+.details p:first-child {
+    background-color: #f9f9f9;
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.details p:nth-child(2) {
+    color: #333;
+    padding: 12px 0;
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+/* Join Button */
+.details button {
+    width: 100%;
+    padding: 14px !important;
+    background-color: #4285f4 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    height: 52px !important;
+    transition: background-color 0.2s, transform 0.2s !important;
+    box-sizing: border-box !important;
+}
+
+.details button:hover:not(:disabled) {
+    background-color: #357ae8 !important;
+    transform: translateY(-2px);
+}
+
+.details button:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.details button:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+/* Slide down animation for details */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 500px;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .top-bar,
+    .details {
+        padding: 20px 25px;
+    }
+    
+    .left h3 {
+        font-size: 20px;
+    }
+    
+    .left p {
+        font-size: 14px;
+    }
+    
+    .right p {
+        font-size: 18px;
+    }
+    
+    .right button {
+        padding: 6px 16px;
+        font-size: 13px;
+    }
 }

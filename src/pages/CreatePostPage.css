@@ -19,10 +19,11 @@
 }
 
 .input {
-    background: #FFFFFF;
+    /* background: #FFFFFF; */
     padding: 50px;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    /* border-radius: 20px; */
+    border: none;
+    /* box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); */
     width: 100%;
     max-width: 600px;
     display: flex;
@@ -46,7 +47,7 @@
 .input select:focus,
 .input input:focus {
     outline: none;
-    border-color: #f1c3c1;
+    border-color: #EE392F;
     background-color: #FFFFFF;
     box-shadow: 0 0 0 4px rgba(238, 57, 47, 0.1);
 }
