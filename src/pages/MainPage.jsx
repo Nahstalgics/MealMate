@@ -1,9 +1,11 @@
 import Post from "../components/DefaultPost.jsx";
 import { useNavigate } from "react-router-dom";
 
+import "./MainPage.css"
+
 function MainPage() {
     const posts = [{"restaurant": "Popeyes", "eat_time": "03:48:33", "max_party": 3, 
-                    "host_name": "sam", "number_accepted": 1, "comments": "shoo shoo", "username": "shahaha"}, 
+                    "host_name": "sam", "number_accepted": 1, "comments": "shoo shoofkjhdsbf kjhsdfjkdhsjfhsdjkfhds djsahbd dsajdh sajhdh sajdh ghsajdgs ajhdg sajhd gsajh gjsa gdjsag sgjh sahdg jhsagd jjkfhdsjk fhdkjshfkjdfhjkdsbhgfkjdshfkjdshbfkjdsbhfkjdsbfjkdbfkjbdksjfbsdjkb", "username": "shahaha"}, 
                     {"restaurant": "KFC", "eat_time": "12:50:33", "max_party": 10, 
                     "host_name": "Billy", "number_accepted": 3, "comments": "Billy the Billy Song", "username": "bibaboo"}]
 
@@ -13,8 +15,8 @@ function MainPage() {
         navigate("/createPost");
     }
     return (
-        <div>
-            <h1>I'm Main Page!</h1>
+        <div className="main">
+            <h1>Find a MealMate!</h1>
             {/* list of posts */}
             <button onClick={handleCreatePost}>Host a MealMate!</button>
             {posts.map((p) => (
