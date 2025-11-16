@@ -63,6 +63,7 @@ function Login() {
                         
                         <form onSubmit={handleUsernameSubmit}>
                             <input
+                                class = "input"
                                 type="text"
                                 placeholder="Username"
                                 value={username}
