@@ -53,20 +53,6 @@ function CreatePost() {
                         </option>
                     ))}
                 </select>
-                {/* <div>
-                    {restaurantList.map((rest) => (
-                        <label key={rest} style={{ marginRight: "10px" }}>
-                            <input
-                                type="radio"
-                                value={rest}
-                                checked={restaurant === rest}
-                                onChange={() => setRestaurant(rest)}
-                                required
-                            />
-                            {rest}
-                        </label>
-                    ))}
-                </div> */}
                 <input
                     type="time"
                     value={eat_time.slice(0, 5)}
