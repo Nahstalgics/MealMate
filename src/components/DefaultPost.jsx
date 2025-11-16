@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Post.css";
+import "./DefaultPost.css";
 
 // import "./data/posts.json"
 
@@ -14,20 +14,25 @@ function DefaultPost(obj) {
 
     return (
         <div className="post-bar">
-            <div className="post-header">
-                <h3>{obj.restaurant}</h3>
-                <p>{obj.eat_time}</p>
-                <p>{obj.number_accepted} / {obj.max_party}</p>
-                <p>{obj.host_name}</p>
-                <button onClick={() => setToggled(!toggled)}>
-                    {toggled ? "hide" : "details"}
-                </button>
+            <div className="top-bar">
+                <div className="left">
+                    <h3>{obj.restaurant}</h3>
+                    <p>{obj.host_name}</p>
+                    <p>{obj.number_accepted} / {obj.max_party}</p>
+                </div>
+                <div className="right">
+                    <p>{obj.eat_time}</p>
+                    <button onClick={() => setToggled(!toggled)}>
+                        {toggled ? "hide" : "details"}
+                    </button>
+                </div>
             </div>
-
             {toggled && (
-                <div className="post-details">
-                    {obj.comments}
-                    <button onClick={handleJoin}>Join</button>
+                <div className="bottom-bar">
+                    <div className="details">
+                        {obj.comments}
+                    </div>
+                    <button className="join" onClick={handleJoin}>Join</button>
                 </div>
             )}
         </div>

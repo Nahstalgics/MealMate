@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
-import Details from "./pages/Details";
 import CreatePost from "./pages/CreatePostPage";
 
 export default function AppRouter() {
