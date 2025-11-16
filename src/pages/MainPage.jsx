@@ -5,21 +5,18 @@ import { fetchPostsq } from "../api/posts.js";
 function MainPage() {
     const [posts, setPosts] = useState([]);
 
-    useEffect(() => {
-        fetchPosts().then(data => setPosts(data));
-    }, []);
+    // useEffect(() => {
+    //     fetchPosts().then(data => setPosts(data));
+    // }, []);
 
-    function addToPosts(newPost) {
-        setPosts(prevPosts => [...prevPosts, newPost]);
-    }
+    // function addToPosts(newPost) {
+    //     setPosts(prevPosts => [...prevPosts, newPost]);
+    // }
 
     return (
         <div>
-            <h1>Find a MealMate!</h1>
+            <h1>I'm Main Page!</h1>
             {/* list of posts */}
-            {posts.map(post => (
-                <Post key={post.id} post={post} />
-            ))}
         </div>
     )
 }
