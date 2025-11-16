@@ -106,6 +106,12 @@ function MainPage() {
         }
 
         fetchData();
+
+          // 🔥 Auto-refresh every 5 seconds
+    const interval = setInterval(fetchData, 2000);
+
+    // cleanup on unmount
+    return () => clearInterval(interval);
     }, []);
     function handleCreatePost() {
         navigate("/createPost");

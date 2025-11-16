@@ -212,51 +212,35 @@ def create_posting(posting: Posting):
 
 
 @app.patch("/postings/leave")
-def leave_posting(restaurant: str, eat_time: str, host_username: str, leaving_username: str):
-    # Check in Postings
-    posting_res = supabase.table("Postings")\
-        .select("*")\
-        .eq("restaurant", restaurant)\
-        .eq("eat_time", eat_time)\
-        .eq("username", host_username)\
+def leave_posting(
+    username: str,
+    host_username: str,
+    eat_time: str,
+):
+    # Get the posting
+    res = supabase.table("FullPostings") \
+        .select("*") \
+        .eq("username", host_username) \
+        .eq("eat_time", eat_time) \
         .execute()
 
-    if posting_res.data:
-        row = posting_res.data[0]
-    else:
-        # Check in FullPostings
-        full_res = supabase.table("FullPostings")\
-            .select("*")\
-            .eq("restaurant", restaurant)\
-            .eq("eat_time", eat_time)\
-            .eq("username", host_username)\
-            .execute()
-        if not full_res.data:
-            raise HTTPException(status_code=404, detail="Hosting not found")
-        row = full_res.data[0]
-        # Move back to Postings
-        supabase.table("Postings").insert(row).execute()
-        supabase.table("FullPostings")\
-            .delete()\
-            .eq("restaurant", restaurant)\
-            .eq("eat_time", eat_time)\
-            .eq("username", host_username)\
-            .execute()
+    if not res.data:
+        raise HTTPException(status_code=404, detail="Posting not found")
 
-    list_of_users = row.get("listOfUsers", [])
+    post = res.data[0]
+    users = post.get("listOfUsers", []) or []
 
-    if leaving_username not in list_of_users:
-        raise HTTPException(status_code=400, detail="User not in hosting")
+    # If the user isn't in the list → nothing to do
+    if username not in users:
+        return {"message": "User was not in the posting"}
 
     # Remove user
-    list_of_users.remove(leaving_username)
-    new_number = len(list_of_users)
+    users.remove(username)
 
-    updated_row = supabase.table("Postings")\
-        .update({"listOfUsers": list_of_users, "number_accepted": new_number})\
-        .eq("restaurant", restaurant)\
-        .eq("eat_time", eat_time)\
-        .eq("username", host_username)\
-        .execute()
+    # Update DB
+    supabase.table("FullPostings").update({
+        "listOfUsers": users,
+        "number_accepted": max(post["number_accepted"] - 1, 0)
+    }).eq("username", host_username).eq("eat_time", eat_time).execute()
 
-    return {"status": "success", "updated": updated_row.data[0]}
+    return {"message": "Successfully left posting"}
