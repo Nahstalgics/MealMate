@@ -28,25 +28,25 @@
     animation: fadeInDown 0.8s ease-out;
 }
 
-.input form{
-    background: #fffbfb;
-    padding: 50px;
-    border-radius: 20px;
-    border-color: #ccc;
+.input {
+    background: #ffffff;
+    padding: 20px 24px;     /* smaller padding so the box hugs content */
+    border-radius: 16px;
     width: 100%;
     max-width: 600px;
 
     display: flex;
     flex-direction: column;
-    align-self: center;
-    gap: 20px;
+    gap: 16px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     animation: fadeInUp 0.8s ease-out 0.2s backwards;
 }
 
 .input select,
 .input input {
     padding: 16px 20px;
-    border: 2px solid #F6F4F4;
+    border: 2px solid #f4f4f6;
     border-radius: 12px;
     font-size: 16px;
     width: 100%;
