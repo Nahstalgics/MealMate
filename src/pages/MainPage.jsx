@@ -36,6 +36,13 @@ function MainPage() {
         }
 
         fetchData();
+
+                
+                const interval = setInterval(() => {
+                    fetchData();
+                }, 2000);
+        
+                return () => clearInterval(interval); 
     }, []);
     function handleCreatePost() {
         navigate("/createPost");
