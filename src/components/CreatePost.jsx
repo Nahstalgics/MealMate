@@ -1,11 +1,14 @@
 import { useState } from "react";
+import restaurantData from "./data/business-licences.json"
 
 function CreatePost() {
-    const restaurantList = ["Cherr", "a", "b", "c"]
+    const restaurantList = restaurantData
+    .map((item) => `${item.businesstradename} ${item.street}`)
+    .filter(Boolean)
 
     const [restaurant, setRestaurant] = useState(restaurantList[0]);
     const [eat_time, setTime] = useState("");
-    const [max_party, setMaxParty] = useState(1);
+    const [max_party, setMaxParty] = useState(null);
     const [comments, setComments] = useState("");
 
     const handleSubmit = async (e) => {
@@ -64,7 +67,7 @@ function CreatePost() {
             </div> */}
             <input
                 type="time"
-                value={time.slice(0, 5)}
+                value={eat_time.slice(0, 5)}
                 onChange={handleTime}
                 placeholder="What time will we meet?"
                 required
