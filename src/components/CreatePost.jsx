@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 function CreatePost() {
+    const restaurantList = ["Cherr", "a", "b", "c"]
+
     const [restaurant, setRestaurant] = useState(restaurantList[0]);
     const [eat_time, setTime] = useState("");
     const [max_party, setMaxParty] = useState(1);
     const [comments, setComments] = useState("");
-
-    const restaurantList = ["Cherr"]
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,7 +36,19 @@ function CreatePost() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
+            <select
+                value={restaurant}
+                onChange={(e) => setRestaurant(e.target.value)}
+                required
+            >
+                <option value="">Select a Restaurant</option>
+                {restaurantList.map((rest) => (
+                    <option key={rest} value={rest}>
+                        {rest}
+                    </option>
+                ))}
+            </select>
+            {/* <div>
                 {restaurantList.map((rest) => (
                     <label key={rest} style={{ marginRight: "10px" }}>
                         <input
@@ -49,7 +61,7 @@ function CreatePost() {
                         {rest}
                     </label>
                 ))}
-            </div>
+            </div> */}
             <input
                 type="time"
                 value={time.slice(0, 5)}
