@@ -11,7 +11,6 @@ export default function AppRouter() {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/mainPage" element={<MainPage />} />
-                <Route path="/post/:id" element={<Details />} />
                 <Route path="/createPost" element={<CreatePost />} />
             </Routes>
         </BrowserRouter>
