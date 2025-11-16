@@ -6,6 +6,8 @@ function CreatePost() {
     const [max_party, setMaxParty] = useState(1);
     const [comments, setComments] = useState("");
 
+    const restaurantList = ["Cherr"]
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
