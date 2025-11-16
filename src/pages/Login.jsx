@@ -93,6 +93,7 @@ function Login() {
                             {!isLogin && (
                                 <>
                                     <input
+                                        class = "input"
                                         type="text"
                                         placeholder="First Name"
                                         value={firstName}
@@ -101,6 +102,7 @@ function Login() {
                                     />
                                     
                                     <input
+                                        class = "input"
                                         type="text"
                                         placeholder="Last Name"
                                         value={lastName}
@@ -109,6 +111,7 @@ function Login() {
                                     />
                                     
                                     <input
+                                        class = "input"
                                         type="email"
                                         placeholder="Email"
                                         value={email}
@@ -119,6 +122,7 @@ function Login() {
                             )}
                             
                             <input
+                                class = "input"
                                 type="text"
                                 placeholder="Username"
                                 value={username}
@@ -127,6 +131,7 @@ function Login() {
                             />
                             
                             <input
+                                class = "input"
                                 type="password"
                                 placeholder="Password"
                                 value={password}
