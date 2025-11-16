@@ -148,49 +148,112 @@ def delete_posting(username: str, eat_time: str):
     
 @app.patch("/postings/join")
 def join_posting(restaurant: str, eat_time: str, host_username: str, joining_username: str):
-    # Fetch the posting row by restaurant, time, and host
-    posting_res = supabase.table("Postings")\
+    # Fetch posting from Postings
+    res = supabase.table("Postings")\
         .select("*")\
         .eq("restaurant", restaurant)\
         .eq("eat_time", eat_time)\
         .eq("username", host_username)\
         .execute()
 
-    if not posting_res.data:
-        raise HTTPException(status_code=404, detail="Hosting not found")
+    if not res.data:
+        raise HTTPException(status_code=404, detail="Posting not found")
 
-    row = posting_res.data[0]
-    list_of_users = row.get("listOfUsers", [])
+    post = res.data[0]
+    users = post.get("listOfUsers", []) or []
 
-    if joining_username in list_of_users:
+    if joining_username in users:
         raise HTTPException(status_code=400, detail="User already joined")
 
-    if row["number_accepted"] >= row["max_party"]:
-        raise HTTPException(status_code=400, detail="Hosting is already full")
+    max_party = int(post["max_party"])
 
-    # Add user to list
-    list_of_users.append(joining_username)
-    new_number = len(list_of_users)
+    if len(users) >= max_party:
+        raise HTTPException(status_code=400, detail="Post already full")
 
-    updated_row = supabase.table("Postings")\
-        .update({"listOfUsers": list_of_users, "number_accepted": new_number})\
+    # Add user
+    users.append(joining_username)
+    number_accepted = len(users)
+
+    # Update the posting
+    updated = supabase.table("Postings")\
+        .update({"listOfUsers": users, "number_accepted": number_accepted})\
         .eq("restaurant", restaurant)\
         .eq("eat_time", eat_time)\
         .eq("username", host_username)\
         .execute()
 
-    # Move to FullPostings if max reached
-    if new_number == row["max_party"]:
-        supabase.table("FullPostings").insert(updated_row.data[0]).execute()
+    # Move to FullPostings if full
+    if number_accepted >= max_party:
+        supabase.table("FullPostings").insert(updated.data[0]).execute()
         supabase.table("Postings")\
             .delete()\
             .eq("restaurant", restaurant)\
             .eq("eat_time", eat_time)\
             .eq("username", host_username)\
             .execute()
-        return {"status": "moved", "moved_row": updated_row.data[0]}
+        return {"status": "moved", "moved_row": updated.data[0]}
 
-    return {"status": "success", "updated": updated_row.data}
+    return {"status": "success", "updated": updated.data[0]}
+
+
+@app.patch("/postings/leave")
+def leave_posting(username: str, host_username: str, eat_time: str):
+    # Determine if posting is in Postings or FullPostings
+    table_name = "Postings"
+    res = supabase.table("Postings")\
+        .select("*")\
+        .eq("username", host_username)\
+        .eq("eat_time", eat_time)\
+        .execute()
+
+    if not res.data:
+        # Try FullPostings
+        res = supabase.table("FullPostings")\
+            .select("*")\
+            .eq("username", host_username)\
+            .eq("eat_time", eat_time)\
+            .execute()
+        if not res.data:
+            raise HTTPException(status_code=404, detail="Posting not found")
+        table_name = "FullPostings"
+
+    post = res.data[0]
+    users = post.get("listOfUsers", []) or []
+
+    if username == host_username:
+        raise HTTPException(status_code=400, detail="Host cannot leave their own posting")
+
+    if username not in users:
+        return {"message": "User was not in the posting"}
+
+    users.remove(username)
+    number_accepted = len(users)
+
+    # If leaving a FullPostings and now has space, move back to Postings
+    if table_name == "FullPostings" and number_accepted < int(post["max_party"]):
+        # Insert into Postings
+        supabase.table("Postings").insert({
+            **post,
+            "listOfUsers": users,
+            "number_accepted": number_accepted
+        }).execute()
+        # Delete from FullPostings
+        supabase.table("FullPostings")\
+            .delete()\
+            .eq("username", host_username)\
+            .eq("eat_time", eat_time)\
+            .execute()
+        return {"status": "moved_back", "updated": {"listOfUsers": users, "number_accepted": number_accepted}}
+
+    # Otherwise, just update table
+    supabase.table(table_name)\
+        .update({"listOfUsers": users, "number_accepted": number_accepted})\
+        .eq("username", host_username)\
+        .eq("eat_time", eat_time)\
+        .execute()
+
+    return {"status": "success", "updated": {"listOfUsers": users, "number_accepted": number_accepted}}
+
 
 @app.post("/postings")
 def create_posting(posting: Posting):
@@ -209,38 +272,3 @@ def create_posting(posting: Posting):
     except Exception as e:
         print("Error creating posting:", e)
         raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.patch("/postings/leave")
-def leave_posting(
-    username: str,
-    host_username: str,
-    eat_time: str,
-):
-    # Get the posting
-    res = supabase.table("FullPostings") \
-        .select("*") \
-        .eq("username", host_username) \
-        .eq("eat_time", eat_time) \
-        .execute()
-
-    if not res.data:
-        raise HTTPException(status_code=404, detail="Posting not found")
-
-    post = res.data[0]
-    users = post.get("listOfUsers", []) or []
-
-    # If the user isn't in the list → nothing to do
-    if username not in users:
-        return {"message": "User was not in the posting"}
-
-    # Remove user
-    users.remove(username)
-
-    # Update DB
-    supabase.table("FullPostings").update({
-        "listOfUsers": users,
-        "number_accepted": max(post["number_accepted"] - 1, 0)
-    }).eq("username", host_username).eq("eat_time", eat_time).execute()
-
-    return {"message": "Successfully left posting"}

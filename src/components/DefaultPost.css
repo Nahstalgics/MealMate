@@ -1,10 +1,8 @@
 .post-bar {
     display: flex;
-    flex-direction: column; /* stack top and bottom */
+    flex-direction: column;
     width: 76%; 
-    padding: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 15px 30px;
     border: 1px solid #ccc;
     border-radius: 8px;
     background: #f9f9f9;
@@ -19,7 +17,7 @@
 .left {
     align-items: flex-start;
 }
-  
+
 .right {
     align-items: flex-end;
 }
@@ -34,9 +32,7 @@
     border: 1px solid #ccc;
     background-color: #f5f5f5;
     border-radius: 8px;
-    padding: 13px;
-    padding-top: 9px;
-    padding-bottom: 10px;
+    padding: 9px 13px 10px 13px;
     display: flex;
     flex-direction: column;
     gap: 26px;
@@ -55,5 +51,8 @@
 .join {
     align-self: center;
     padding: 0.26rem;
-    width: 13%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
 }
