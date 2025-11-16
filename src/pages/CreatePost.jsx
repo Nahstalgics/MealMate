@@ -10,11 +10,11 @@ function CreatePost() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input 
+            <input
                 type="text"
                 placeholder="What restaurant is this?"
                 value={newPost.restuarant}
-                onChange={(e) => setNewPost({ ...newPost, restuarant: e.target.value})}
+                onChange={(e) => setNewPost({ ...newPost, restuarant: e.target.value })}
             />
         </form>
     )
