@@ -43,6 +43,31 @@ class LoginData(BaseModel):
     username: str
     password: str
 
+@app.get("/postings/joined")
+def get_joined_postings(username: str):
+    # Active postings user joined
+    active = (
+        supabase.table("Postings")
+        .select("*")
+        .contains("listOfUsers", [username])
+        .execute()
+    ).data
+
+    # Finished/full postings user joined
+    full = (
+        supabase.table("FullPostings")
+        .select("*")
+        .contains("listOfUsers", [username])
+        .execute()
+    ).data
+
+    # Combine them
+    return {
+        "active": active,
+        "full": full,
+        "all": active + full,
+    }
+
 @app.post("/users")
 def create_user(user: User):
     # Insert the user into the Users table
