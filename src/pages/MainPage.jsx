@@ -1,22 +1,19 @@
 import { useState, useEffect } from "react";
-import Post from "../components/Post";
+import Post from "../components/DefaultPost.jsx";
 import { fetchPostsq } from "../api/posts.js";
+import { useNavigate } from "react-router-dom";
 
 function MainPage() {
-    const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     fetchPosts().then(data => setPosts(data));
-    // }, []);
-
-    // function addToPosts(newPost) {
-    //     setPosts(prevPosts => [...prevPosts, newPost]);
-    // }
-
+    function handleCreatePost() {
+        navigate("/createPost");
+    }
     return (
         <div>
             <h1>I'm Main Page!</h1>
             {/* list of posts */}
+            <button onClick={handleCreatePost}>Host a MealMate!</button>
         </div>
     )
 }
