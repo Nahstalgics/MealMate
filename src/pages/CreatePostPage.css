@@ -1,0 +1,11 @@
+.main {
+    display: flex;
+    flex-direction: column; /* stack top and bottom */
+    width: 76%; 
+    padding: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+}

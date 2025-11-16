@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import restaurantData from "../components/data/business-licences.json"
+import "./CreatePostPage.css"
 
 function CreatePost() {
+    const navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     const restaurantList = restaurantData
@@ -50,6 +53,8 @@ function CreatePost() {
             console.error("Error creating post:", err.message);
             alert("Error creating post: " + err.message);
         }
+
+        navigate("/mainPage");
     };
 
     const handleTime = (e) => {
@@ -58,7 +63,7 @@ function CreatePost() {
     }
 
     return (
-        <div>
+        <div className="main">
             <h1>Host a MealMate</h1>
             <form onSubmit={handleSubmit}>
                 <select
