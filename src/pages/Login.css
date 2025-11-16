@@ -8,7 +8,7 @@
     padding: 20px;
 }
 
-/* Title section - fades in from top */
+/* Title section */
 .phrasing {
     text-align: center;
     margin-bottom: 40px;
@@ -27,14 +27,13 @@
     font-weight: normal;
 }
 
-/* Login container - fades in from bottom */
+/* Login container */
 .login-container {
     width: 100%;
     max-width: 900px;
     animation: fadeInUp 1s ease-out 0.3s backwards;
 }
 
-/* Login box - more padding */
 .login-box {
     background: white;
     padding: 50px 60px;
@@ -49,7 +48,7 @@
     font-weight: bold;
 }
 
-/* Wrapper - side by side with better spacing */
+/* WRAPPER — side by side */
 .auth-wrapper {
     display: flex;
     gap: 40px;
@@ -57,14 +56,13 @@
     margin-bottom: 30px;
 }
 
-/* FOLDER BOXES - more prominent */
+/* FOLDER STYLE BOXES */
 .regular-auth,
 .google-auth {
     flex: 1;
     padding: 50px 40px;
     border-radius: 12px;
     position: relative;
-    /* background-image: url('https://pngimg.com/uploads/folder/folder_PNG100468.png'); REPLACE WITH YOUR IMAGE */
     background-size: 110%;
     background-position: center;
     background-repeat: no-repeat;
@@ -72,9 +70,8 @@
     border: none;
 }
 
-/* Darker overlay for better contrast */
-.regular-auth::before,
-.google-auth::before {
+/* 🔥 KEEP overlay ONLY on regular auth */
+.regular-auth::before {
     content: '';
     position: absolute;
     top: 0;
@@ -86,21 +83,42 @@
     z-index: 1;
 }
 
-/* Make sure content is above overlay */
-.regular-auth form,
-.google-button {
-    position: relative;
-    z-index: 2;
+/* ❌ REMOVE overlay on Google auth */
+.google-auth::before {
+    content: none !important;
 }
 
-/* Stack form inputs - better spacing */
+/* Ensure clickable Google button */
+.google-auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10 !important;
+}
+
+.google-auth iframe {
+    width: 280px !important;
+    height: 50px !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    z-index: 20 !important;
+}
+
+.google-auth > div {
+    z-index: 20 !important;
+    pointer-events: auto !important;
+}
+
+/* Inputs */
 .regular-auth form {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    position: relative;
+    z-index: 2;
 }
 
-/* Inputs - bigger and cleaner */
 .input {
     width: 100%;
     padding: 15px;
@@ -116,7 +134,7 @@
     border-color: #4285f4;
 }
 
-/* Login button - bigger */
+/* Submit button */
 .regular-auth button[type="submit"] {
     width: 100%;
     padding: 15px;
@@ -135,17 +153,15 @@
     background-color: #357ae8;
 }
 
-/* OR DIVIDER - horizontal and bigger */
+/* OR divider */
 .divider {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    z-index: 2;
+    z-index: 5;
 }
 
 .divider span {
-    writing-mode: horizontal-tb;
     color: #666;
     font-size: 18px;
     font-weight: bold;
@@ -160,43 +176,7 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Google auth box - centered */
-.google-auth {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Google button - centered and better styled */
-.google-button {
-    width: 80%;
-    padding: 15px 24px;
-    background-color: white;
-    color: #333;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    transition: all 0.2s;
-}
-
-.google-button:hover {
-    background-color: #f8f9fa;
-    border-color: #4285f4;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.google-button img {
-    width: 24px;
-    height: 24px;
-}
-
-/* Toggle text - bigger */
+/* Toggle text */
 .login-box > p {
     text-align: center;
     margin-top: 40px;
@@ -214,25 +194,13 @@
     color: #357ae8;
 }
 
-/* ANIMATIONS */
+/* Animations */
 @keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
