@@ -55,7 +55,6 @@ function DefaultPost({ restaurant, eat_time, max_party, number_accepted, host_na
                     {toggled ? "hide" : "details"}
                 </button>
             </div>
-
             {toggled && (
                 <div className="post-details">
                     <p>{comments}</p>
