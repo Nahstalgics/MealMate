@@ -1,40 +1,37 @@
-import "./Post.css"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Post.css";
 
-function Post(props) {
-    const newPost = {
-        restaurant: "myres",
-        eat_time: "09:20:32",
-        max_people: 6,
-        host_name: "sam",
-        number_accepted: 0,
-        comments: "Go away",
-        username: "wallee"
-    }
+// import "./data/posts.json"
 
-    const handleCreatePost = () => {
-        fetch("http://localhost:8000/hostings", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newHosting),
-          })
-            .then((res) => res.json())
-            .then((data) => console.log("Hosting created:", data))
-            .catch((err) => console.error(err));
+function DefaultPost(obj) {
+    const [toggled, setToggled]=useState(false);
+    const navigate = useNavigate();
+
+    function handleJoin() {
+        navigate("/mainPage")
     }
 
     return (
-        // <div className="single-post">
-        //     <h2>{props.restaurant}</h2>
-        //     <h3>{props.eat_time}</h3>
-        //     <h3>{props.max_party}</h3>
-        //     <h3>{props.host}</h3>
-        // </div>
-        <div>
-            <button onClick={handleCreatePost}>Create Hoosting</button>
+        <div className="post-bar">
+            <div className="post-header">
+                <h3>{obj.restaurant}</h3>
+                <p>{obj.eat_time}</p>
+                <p>{obj.number_accepted} / {obj.max_party}</p>
+                <p>{obj.host_name}</p>
+                <button onClick={() => setToggled(!toggled)}>
+                    {toggled ? "hide" : "details"}
+                </button>
+            </div>
+
+            {toggled && (
+                <div className="post-details">
+                    {obj.comments}
+                    <button onClick={handleJoin}>Join</button>
+                </div>
+            )}
         </div>
     )
 }
 
-export default Post
+export default DefaultPost
