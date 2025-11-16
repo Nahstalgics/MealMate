@@ -2,7 +2,7 @@ import "./Post.css"
 
 function Post(props) {
     return (
-        <div>
+        <div className="single-post">
             <h2>{props.restaurant}</h2>
             <h3>{props.time}</h3>
             <h3>{props.maxParty}</h3>
