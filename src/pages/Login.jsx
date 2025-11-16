@@ -13,19 +13,76 @@ function Login() {
     
     const [showUsernameInput, setShowUsernameInput] = useState(false);
 
-    function handleLogin(e) {
+    async function handleLogin(e) {
         e.preventDefault();
-        
+    
         if (isLogin) {
-            console.log('Logging in:', { username, password });
-            // TODO: API call to /api/login
+            // LOGIN
+            try {
+                const response = await fetch("http://localhost:8000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                });
+    
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.detail || "Login failed");
+                }
+    
+                const data = await response.json();
+                console.log("Login successful:", data);
+    
+                // ✅ Persist user info
+                localStorage.setItem("user", JSON.stringify(data.user));
+    
+                navigate("/mainPage");
+            } catch (err) {
+                console.error("Login failed:", err.message);
+                alert("Login failed: " + err.message);
+            }
+    
         } else {
-            console.log('Signing up:', { firstName, lastName, username, email, password });
-            // TODO: API call to /api/signup
+            // SIGNUP
+            try {
+                const response = await fetch("http://localhost:8000/users", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ firstName, lastName, username, email, password }),
+                });
+    
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.detail || "Signup failed");
+                }
+    
+                const data = await response.json();
+                console.log("Signup successful:", data);
+    
+                // Auto-login
+                const loginResponse = await fetch("http://localhost:8000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                });
+    
+                if (!loginResponse.ok) {
+                    const errData = await loginResponse.json().catch(() => ({}));
+                    throw new Error(errData.detail || "Auto-login failed");
+                }
+    
+                const loginData = await loginResponse.json();
+                console.log("Auto-login successful:", loginData);
+    
+                // ✅ Persist user info
+                localStorage.setItem("user", JSON.stringify(loginData.user));
+    
+                navigate("/mainPage");
+            } catch (err) {
+                console.error("Signup failed:", err.message);
+                alert("Signup failed: " + err.message);
+            }
         }
-        
-        // Navigate to main page after login/signup
-        navigate("/mainPage");
     }
 
     function handleGoogleAuth() {
