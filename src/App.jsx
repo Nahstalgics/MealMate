@@ -1,7 +1,7 @@
 import "./App.css"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Post from "./components/Post"
+import Post from "./components/DefaultPost"
 
 import Login from "./pages/Login"
 import MainPage from "./pages/MainPage"
