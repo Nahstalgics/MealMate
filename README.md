@@ -35,12 +35,5 @@ A social dining platform that helps people in Vancouver meet new friends and avo
 - Supabase Python Client
 - Pydantic
 
-### Database (Supabase / PostgreSQL)
-- `users`
-- `postings`
-- `joins`
 
----
-
-## Project Structure
 
