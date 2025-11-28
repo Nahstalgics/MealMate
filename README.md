@@ -21,6 +21,11 @@ A social dining platform that helps people in Vancouver meet new friends and avo
 
 ---
 
+## 🎥 Demo Video
+https://www.youtube.com/watch?v=VIDEO_ID
+
+---
+
 ## Tech Stack
 
 ### Frontend
