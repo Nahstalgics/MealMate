@@ -23,8 +23,7 @@ A social dining platform that helps people in Vancouver meet new friends and avo
 
 ## 🎥 Demo Video
 
-<video src="demo.webm" controls width="600"></video>
-
+[Recording 2025-11-16 112224.webm](https://github.com/user-attachments/assets/a2cea034-4019-4cc4-af85-46ef92df9169)
 
 ---
 
